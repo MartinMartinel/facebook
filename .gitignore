@@ -15,3 +15,6 @@
 # Ignore RubyMine settings
 .idea/
 
+
+# Ignore application configuration
+/config/application.yml
