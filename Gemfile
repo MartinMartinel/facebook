@@ -34,13 +34,21 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 gem 'devise', '~> 3.5', '>= 3.5.6'
 gem 'devise-bootstrap-views', '~> 0.0.7'
+gem 'addressable', '~> 2.4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'guard', '~> 2.13'
+  gem 'rspec-rails', '~> 3.4', '>= 3.4.2'
   gem 'guard-rspec', '~> 4.6', '>= 4.6.4'
+  gem 'spork-rails', '~> 4.0'
   gem 'guard-spork', '~> 2.1'
+group :test do
+  gem 'selenium-webdriver', '~> 2.51'
+  gem 'capybara', '~> 2.6', '>= 2.6.2'
+  gem 'factory_girl_rails', '~> 4.6'
+  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
 end
 
 group :development do
