@@ -38,6 +38,9 @@ gem 'devise-bootstrap-views', '~> 0.0.7'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'guard', '~> 2.13'
+  gem 'guard-rspec', '~> 4.6', '>= 4.6.4'
+  gem 'guard-spork', '~> 2.1'
 end
 
 group :development do
