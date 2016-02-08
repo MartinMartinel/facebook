@@ -32,7 +32,7 @@ group :test do
   gem 'selenium-webdriver', '~> 2.51'
   gem 'capybara', '~> 2.6', '>= 2.6.2'
   gem 'factory_girl_rails', '~> 4.6'
-  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
+  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1', require: false
   gem 'database_cleaner', '~> 1.5', '>= 1.5.1'
   gem 'faker', '~> 1.6', '>= 1.6.1'
   gem 'launchy', '~> 2.4', '>= 2.4.3'
