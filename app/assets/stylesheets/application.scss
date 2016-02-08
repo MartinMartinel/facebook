@@ -1,7 +1,8 @@
 // Prefer imports over require
 //= require_self
 
-@import "devise_bootstrap_views";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap_overwrites";
+
+body { padding-top: 70px; }

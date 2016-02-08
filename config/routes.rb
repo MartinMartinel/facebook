@@ -14,4 +14,6 @@ Rails.application.routes.draw do
     get    'signup' => 'registrations#new'
   end
 
+  get 'newsfeed/:id', to: 'users#newsfeed', as: :newsfeed
 end
+
