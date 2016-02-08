@@ -15,7 +15,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'haml', '~> 4.0', '>= 4.0.7'
 gem 'figaro', '~> 1.1', '>= 1.1.1'
 gem 'devise', '~> 3.5', '>= 3.5.6'
-gem 'devise-bootstrap-views', '~> 0.0.7'
 gem 'omniauth', '~> 1.3', '>= 1.3.1'
 gem 'omniauth-facebook', '~> 3.0'
 gem 'paperclip', '~> 4.3', '>= 4.3.4'
@@ -26,8 +25,6 @@ group :development, :test do
   gem 'guard', '~> 2.13'
   gem 'rspec-rails', '~> 3.4', '>= 3.4.2'
   gem 'guard-rspec', '~> 4.6', '>= 4.6.4'
-  gem 'spork-rails', '~> 4.0'
-  gem 'guard-spork', '~> 2.1'
   gem 'childprocess', '0.5.3'
 end
 
