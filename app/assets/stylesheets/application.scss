@@ -1,8 +1,11 @@
 // Prefer imports over require
 //= require_self
 
+@import "variables";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap_overwrites";
+@import "global";
+@import "login_signup";
 
-body { padding-top: 70px; }
+body { padding-top: 20px; }

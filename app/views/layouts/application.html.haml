@@ -8,6 +8,5 @@
     = csrf_meta_tags
   %body{class: "controller__#{controller_name} action__#{action_name}"}
     = render 'layouts/navigation'
-    .container
-      = render 'layouts/messages'
-      = yield
+    = render 'layouts/messages'
+    = yield
