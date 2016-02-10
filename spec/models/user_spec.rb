@@ -11,6 +11,8 @@ describe User do
     it { should validate_presence_of(:first_name) }
     it { should validate_presence_of(:last_name) }
     it { should validate_presence_of(:email) }
+    it { should validate_presence_of(:birthday) }
+    it { should validate_presence_of(:gender) }
     it { should allow_value("foo@example.com").for(:email) }
     it { should_not allow_value("foo@example").for(:email) }
     it { should_not allow_value("@example.com").for(:email) }
