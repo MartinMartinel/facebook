@@ -14,6 +14,12 @@ background-repeat: no-repeat;
 background-attachment: fixed;
 }
 
+
+#birthday { padding: 10px; }
+#date select:nth-child(1) {
+  width: 130px;
+}
+
 .navbar-default{
   background-color:#4c66a4;
   border-bottom:none;

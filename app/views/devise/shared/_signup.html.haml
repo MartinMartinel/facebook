@@ -1,24 +1,32 @@
-%div.panel.panel-default
-  %div.panel-heading
-    %h4= t('.sign_up', :default => "Sign up")
-  %div.panel-body
-    = form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: { role: "form" }) do |f|
-      %div.form-group
-        = f.label :first_name
+#home.container
+  .row
+    .col-md-7
+      %h3.slogan
+        Facebook helps you connect and share with the people in your life.
+      = image_tag('worldmap.png', class: 'img img-responsive')
+    .col-md-5
+      = form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: { role: "form" }) do |f|
+        %legend
+          %a Create your account
+        %h4 It's free and always will be.
+        .row
+          .col-xs-6.col-md-6
+            = f.text_field :first_name, autofocus: "", class: "form-control input-lg", placeholder: "First Name"
+          .col-xs-6.col-md-6
+            = f.text_field :last_name, class: "form-control input-lg", placeholder: "Last Name"
+        = f.email_field :email, autofocus: true, class: "form-control input-lg", placeholder: "Your Email"
+        = f.password_field :password, class: "form-control input-lg", placeholder: "Your Password"
+        = f.password_field :password_confirmation, class: "form-control input-lg", placeholder: "Confirm Password"
+        %label{:for => ""}
+          Birth Date
+        .row
+          .col-md-12#birthday
+            %span#date= f.date_select(:birthday, prompt: { day: 'Select day', month: 'Select month', year: 'Select year' },:start_year => Time.now.year - 100, :end_year => Time.now.year - 1,  :html=>{:class => "form-control"})
+        = f.label :gender, "Male", :value => "true", class: "radio-inline"
+        = f.radio_button :gender, true
+        = f.label :gender, "Female", :value => "false", class:"radio-inline"
+        = f.radio_button :gender, false
         %br/
-        = f.text_field :first_name, autofocus: true, class: "form-control"
-      %div.form-group
-        = f.label :last_name
-        %br/
-        = f.text_field :last_name, class: "form-control"
-      %div.form-group
-        = f.label :email
-        = f.email_field :email, autofocus: true, class: "form-control"
-      %div.form-group
-        = f.label :password
-        = f.password_field :password, class: "form-control"
-      %div.form-group
-        = f.label :password_confirmation
-        = f.password_field :password_confirmation, class: "form-control"
-      = f.submit t('.sign_up', :default => "Sign Up"), class: "btn btn-primary"
-= render "devise/shared/links"
+        %span.help-block By clicking Create my account, you agree to our Terms and that you have read our Data Use Policy, including our Cookie Use.
+        = f.submit t('.sign_up', :default => "Sign Up"), class: "btn btn-lg btn-primary btn-block signup-btn"
+
