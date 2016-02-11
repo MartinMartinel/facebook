@@ -22,6 +22,11 @@
           = form_for(resource, as: resource_name, url: session_path(resource_name), html: {role: "form", class: "navbar-form navbar-right", id: "header-form"}) do |f|
             %div.lt-left
               %div.form-group
+                %label{:style => "display:none;"} facebook_signin_btn
+                %br/
+                = link_to image_tag("login.png", class: "fb-login"), user_omniauth_authorize_path(:facebook)
+            %div.lt-left
+              %div.form-group
                 = f.label :email
                 %br/
                 = f.email_field :email, autofocus: "", class: "form-control input-sm", id: "exampleInputEmail2", placeholder: "Email"
