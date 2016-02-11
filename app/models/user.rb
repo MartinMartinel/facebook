@@ -1,5 +1,13 @@
 class User < ActiveRecord::Base
 
+  has_many :friendships, dependent: :destroy, foreign_key: :friender_id
+  has_many :reverse_friendships, class_name: "Friendship",
+  dependent: :destroy,
+  foreign_key: :friended_id
+
+  has_many :friended_users, through: :friendships, source: :friended
+  has_many :frienders, through: :reverse_friendships, source: :friender
+
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
 
