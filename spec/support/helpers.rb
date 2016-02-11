@@ -1,7 +1,7 @@
 module Helpers
   def log_in(email,pwd)
-    visit 'login'
-    within("#new_user") do
+    visit 'signup'
+    within("#header-form") do
       fill_in "Email",    with: email
       fill_in "Password", with: pwd
     end
