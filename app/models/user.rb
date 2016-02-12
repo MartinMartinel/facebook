@@ -18,38 +18,45 @@ class User < ActiveRecord::Base
     end
   end
 
+  def accept_friend_request_from friender
+    self.reverse_friendships.find_by(friender_id: friender.id).update_column(:accepted, true) unless friends_with? friender
+  end
+
+  def reject_friend_request_from friender
+    self.reverse_friendships.find_by(friender_id: friender.id).destroy unless !has_friend_request_from? friender
+  end
+
+  def unfriend user
+    friendship = get_friendship_with(user) if self.friends_with? user
+    friendship.destroy
+  end
+
   def has_friend_request_from? friender
     !self.reverse_friendships.where("friender_id = ? AND accepted = ?", friender.id, false).empty?
   end
 
-  def accept_friend_request_from friender
-    unless friends_with? friender
-      self.reverse_friendships.find_by(friender_id: friender.id).update_column(:accepted, true)
-    end
-  end
-
-  def reject_friend_request_from friender
-    unless self.reverse_friendships.where("friender_id = ? AND accepted = ?", friender.id, false).empty?
-      self.reverse_friendships.find_by(friender_id: friender.id).destroy
-    end
-  end
-
   def friends_with? user
-    !!self.friendships.find_by(friended_id: user.id, accepted: true) ||
-    !!user.friendships.find_by(friended_id: self.id, accepted: true)
+    friended_friends_ids.include?(user.id) || friender_friends_ids.include?(user.id)
   end
 
-  def unfriend user
-    if self.friends_with? user
-      friendship = self.reverse_friendships.find_by(friender_id: user.id) || self.friendships.find_by(friended_id: user.id)
-      friendship.destroy
-    end
+  def get_friendship_with user
+    self.reverse_friendships.find_by(friender_id: user.id) || self.friendships.find_by(friended_id: user.id)
+  end
+
+  def friender_friends_ids
+    Friendship.where(friender_id: self.id, accepted: true).pluck(:friended_id)
+  end
+
+  def friended_friends_ids
+    Friendship.where(friended_id: self.id, accepted: true).pluck(:friender_id)
+  end
+
+  def all_friend_ids
+    friender_friends_ids.push(*friended_friends_ids)
   end
 
   def friends
-    friender_friends_ids = "SELECT friender_id FROM friendships WHERE friended_id = :user_id AND accepted = true"
-    friended_friends_ids = "SELECT friended_id FROM friendships WHERE friender_id = :user_id AND accepted = true"
-    User.where("id IN (#{friender_friends_ids}) OR id IN (#{friended_friends_ids})", user_id: self.id)
+    User.select { |u| all_friend_ids.include?(u.id) }
   end
 
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)

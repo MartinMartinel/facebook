@@ -1,21 +1,21 @@
 module Helpers
-  def log_in(email,pwd)
+  def log_in(email, pwd)
     visit 'signup'
-    within("#header-form") do
-      fill_in "Email",    with: email
-      fill_in "Password", with: pwd
+    within('#header-form') do
+      fill_in 'Email',    with: email
+      fill_in 'Password', with: pwd
     end
-    click_on "Sign In"
+    click_on 'Sign In'
   end
 
   def sign_up(email, pwd)
     visit 'signup'
-    within("#new_user") do
-      fill_in "Email",      with: email
-      fill_in "Password",   with: pwd
-      fill_in "Password confirmation", with: pwd
+    within('#new_user') do
+      fill_in 'Email',      with: email
+      fill_in 'Password',   with: pwd
+      fill_in 'Password confirmation', with: pwd
     end
-    click_on "Sign Up"
+    click_on 'Sign Up'
   end
 
   def make_friends(user1, user2)

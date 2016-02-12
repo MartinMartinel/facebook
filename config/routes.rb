@@ -17,4 +17,3 @@ Rails.application.routes.draw do
 
   get 'newsfeed/:id', to: 'users#newsfeed', as: :newsfeed
 end
-
