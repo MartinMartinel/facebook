@@ -1,5 +1,12 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
 
-  def newsfeed; end
+  def index
+    @users = User.all
+  end
+
+  def newsfeed
+
+  end
 
 end

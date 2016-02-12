@@ -37,11 +37,9 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
-
   config.include Helpers
 
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   config.infer_spec_type_from_file_location!
 
@@ -51,7 +49,7 @@ RSpec.configure do |config|
 end
 
 Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
+    config.integrate do |with|
     with.test_framework :rspec
     with.library :rails
   end

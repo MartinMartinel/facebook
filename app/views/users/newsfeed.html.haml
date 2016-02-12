@@ -1,4 +1,4 @@
 .container
   %h1 Newsfeed
-  
+  = link_to "All Users", users_path
   %p= "Newsfeed for #{current_user.first_name} #{current_user.last_name}"
