@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   end
 
   def has_friend_request_from? friender
-    !self.reverse_friendships.where("friender_id = ? AND accepted = ?", friender.id, false).empty?
+    !self.reverse_friendships.where(friender_id: friender.id, accepted: false).empty?
   end
 
   def sent_friend_request_to? friended
@@ -50,11 +50,11 @@ class User < ActiveRecord::Base
   end
 
   def friender_friends_ids
-    Friendship.where(friender_id: self.id, accepted: true).pluck(:friended_id)
+    self.friendships.where(accepted: true).pluck(:friended_id)
   end
 
   def friended_friends_ids
-    Friendship.where(friended_id: self.id, accepted: true).pluck(:friender_id)
+    self.reverse_friendships.where(accepted: true).pluck(:friender_id)
   end
 
   def all_friend_ids
@@ -66,15 +66,11 @@ class User < ActiveRecord::Base
   end
 
   def requests_from
-    frienders_ids = "SELECT friender_id FROM friendships WHERE friended_id = :user_id AND accepted = false"
-    User.where("id IN (#{frienders_ids})", user_id: self.id).alphabetize
+    User.select { |u| self.has_friend_request_from?(u) }
   end
 
   def no_friendship
-    frienders_ids = "SELECT friender_id FROM friendships WHERE friended_id = :user_id"
-    friendeds_ids = "SELECT friended_id FROM friendships WHERE friender_id = :user_id"
-
-    User.where("id NOT IN (#{frienders_ids}) AND id NOT IN (#{friendeds_ids})", user_id: self.id).alphabetize
+    User.where.not(id: all_friend_ids)
   end
 
   def name
