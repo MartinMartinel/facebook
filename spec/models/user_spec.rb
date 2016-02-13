@@ -85,6 +85,33 @@ describe User do
         expect(friended.friends).to include(user)
       end
     end
-  end
 
+    describe 'friend status' do
+      let(:friender)     { create(:user) }
+      let(:friend)       { create(:user) }
+      let(:not_friend)   { create(:user) }
+
+      before(:each) do
+        friender.send_friend_request_to(user)
+        user.send_friend_request_to(friended)
+        make_friends(friend, user)
+      end
+
+      describe '.requests_from' do
+        it 'gets users friend request came from' do
+          requesters = user.requests_from
+          expect(requesters.count).to eq(1)
+          expect(requesters).to include(friender)
+        end
+      end
+
+      describe '.no_friendship' do
+        it 'gets user with no friendship/request' do
+          non_friend = user.no_friendship
+          expect(non_friend.count).to eq(1)
+          expect(non_friend).to include(not_friend)
+        end
+      end
+    end
+  end
 end
