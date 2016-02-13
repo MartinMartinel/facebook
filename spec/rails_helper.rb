@@ -37,6 +37,12 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
+
   config.include Helpers
 
   config.use_transactional_fixtures = false

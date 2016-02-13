@@ -109,9 +109,12 @@ legend a{
   .navbar-form .lt-left{
     float:left !important;
     color: white;
+
+    input { color: black; }
   }
   .navbar-form .lt-right{
     float:right !important;
+    input { color: black; }
   }
   .navbar-form .checkbox{
     display:block;
@@ -155,4 +158,11 @@ legend a{
   width: 170px;
   padding: 3px;
   margin-right: 5px;
+}
+
+
+.edit_user {
+  .form-group label{
+    color: black;
+  }
 }
