@@ -35,6 +35,10 @@ class User < ActiveRecord::Base
     !self.reverse_friendships.where("friender_id = ? AND accepted = ?", friender.id, false).empty?
   end
 
+  def sent_friend_request_to? friended
+    !self.friendships.where(friended_id: friended.id).empty?
+  end
+
   def friends_with? user
     friended_friends_ids.include?(user.id) || friender_friends_ids.include?(user.id)
   end
@@ -59,12 +63,16 @@ class User < ActiveRecord::Base
     User.select { |u| all_friend_ids.include?(u.id) }
   end
 
+  def name
+    "#{first_name} #{last_name}"
+  end
+
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     data = access_token['info']
     if user = User.find_by_email(data["email"])
       user
     else # Create a user with a stub password.
-      User.create!(:email => data["email"], :password => Devise.friendly_token[0,20])
+      User.create!(:email => data["email"], :password => Devise.friendly_token[0,20], :first_name => data["fi"])
     end
   end
 end

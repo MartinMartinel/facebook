@@ -50,7 +50,7 @@ describe 'User pages' do
         end
 
         it "sends friend request" do
-          click_on "Add Friend"
+          click_on first(:a, "Add Friend")
           expect(page).to have_text("Friend Request Sent")
         end
 

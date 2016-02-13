@@ -12,13 +12,10 @@
       .collapse.navbar-collapse
         - if user_signed_in?
           %ul.nav.navbar-nav.navbar-right
-            %li.dropdown
-              %a.dropdown-toggle{href: '#', data: {toggle: 'dropdown'}}
-                %b.caret
-              %ul.dropdown-menu
-                %li= link_to 'Settings', edit_user_registration_path
-                %li= link_to 'Log Out', destroy_user_session_path, :method => :delete
-        - unless user_signed_in?
+            %li= link_to 'Newsfeed', newsfeed_path(current_user)
+            %li= link_to 'Settings', edit_user_registration_path
+            %li= link_to 'Log Out', destroy_user_session_path, :method => :delete
+        - else
           = form_for(resource, as: resource_name, url: session_path(resource_name), html: {role: "form", class: "navbar-form navbar-right", id: "header-form"}) do |f|
             %div.lt-left
               %div.form-group
