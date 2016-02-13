@@ -15,6 +15,8 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
 
+  config.include Devise::TestHelpers, type: :controller
+
   config.success_color = :cyan
 
   config.before(:suite) do
@@ -35,12 +37,6 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
-  end
-
-  config.around(:each) do |example|
-    DatabaseCleaner.cleaning do
-      example.run
-    end
   end
 
   config.include Helpers

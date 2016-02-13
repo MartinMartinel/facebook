@@ -87,9 +87,8 @@ describe User do
     end
 
     describe 'friend status' do
-      let(:friender)     { create(:user) }
-      let(:friend)       { create(:user) }
-      let(:not_friend)   { create(:user) }
+      let(:friender)     { create(:user, email: "friender@example.com") }
+      let(:friend)       { create(:user, email: "friend@example.com") }
 
       before(:each) do
         friender.send_friend_request_to(user)
@@ -107,8 +106,8 @@ describe User do
 
       describe '.no_friendship' do
         it 'gets user with no friendship/request' do
+          not_friend = create(:user, email: "not_friend@example.com")
           non_friend = user.no_friendship
-          expect(non_friend.count).to eq(1)
           expect(non_friend).to include(not_friend)
         end
       end

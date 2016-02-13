@@ -1,6 +1,7 @@
 %p Friend Request Received
 .friend-options
-  = form_for(user.friendships.find_by(friended_id: current_user, accepted: false), html: { method: :patch }) do |f|
+  = form_for(user.friendships.find_by(friended_id: current_user, accepted: false), html: { method: :patch }, remote: true) do |f|
     = f.submit "Accept", class: "btn btn-primary"
-  = form_for(user.friendships.find_by(friended_id: current_user, accepted: false), html: { method: :delete }) do |f|
+  = form_for(user.friendships.find_by(friended_id: current_user, accepted: false), html: { method: :delete }, remote: true) do |f|
+    = hidden_field_tag :user_id, user.id
     = f.submit "Decline", class: "btn btn-default"
