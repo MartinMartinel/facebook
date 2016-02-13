@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
 
   scope :alphabetize, -> { order(:first_name, :last_name) }
 
+  has_many :notifications
+
   has_many :friendships, dependent: :destroy, foreign_key: :friender_id
   has_many :reverse_friendships, class_name: "Friendship",
   dependent: :destroy,
@@ -75,6 +77,14 @@ class User < ActiveRecord::Base
 
   def name
     "#{first_name} #{last_name}"
+  end
+
+  def update_new_notifications
+    increment!(:new_notifications)
+  end
+
+  def reset_new_notifications
+    update_attributes(new_notifications: 0)
   end
 
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)

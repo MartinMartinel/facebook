@@ -18,10 +18,37 @@ describe User do
   end
 
   describe 'associations' do
+    it { should have_many(:notifications) }
     it { should have_many(:friendships).dependent(:destroy)}
     it { should have_many(:friended_users) }
     it { should have_many(:frienders)}
     it { should have_many(:reverse_friendships).dependent(:destroy) }
+  end
+
+  describe "defaults" do
+    it "sets new_notifications to zero" do
+      expect(user.new_notifications).to be_zero
+    end
+  end
+
+  describe "notifications management" do
+    before(:each) do
+      Notification.send_notification(user, "request", "Friender")
+    end
+    it "resets new notifications" do
+      expect(user.new_notifications).to eq(1)
+      user.reset_new_notifications
+      expect(user.new_notifications).to be_zero
+    end
+    it "increases new notifications" do
+      expect{ user.update_new_notifications }.
+          to change{ user.new_notifications }.by(1)
+    end
+    it "checks for new notifications" do
+      expect(user.new_notifications?).to be_truthy
+      user.reset_new_notifications
+      expect(user.new_notifications?).to be_falsey
+    end
   end
 
   describe 'friending' do
