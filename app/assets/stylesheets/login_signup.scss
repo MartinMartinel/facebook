@@ -76,8 +76,8 @@ legend a{
   -webkit-box-shadow: 0px 0px 0px #a4e388;
   -moz-box-shadow: 0px 0px 0px #a4e388;
   box-shadow: 0px 0px 0px #a4e388;
+  color: white ;
   font-family: Arial;
-  color: #ffffff;
   font-size: 20px;
   padding: 10px 20px 10px 20px;
   border: solid #3b6e22  1px;
@@ -108,13 +108,13 @@ legend a{
   }
   .navbar-form .lt-left{
     float:left !important;
-    color: white;
+    //color: white;
 
     input { color: black; }
   }
   .navbar-form .lt-right{
     float:right !important;
-    input { color: black; }
+  //input { color: black; }
   }
   .navbar-form .checkbox{
     display:block;

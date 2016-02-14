@@ -7,7 +7,7 @@ class FriendshipsController < ApplicationController
     Notification.send_notification(@user, "request", current_user.name)
     respond_to do |format|
       format.html { redirect_to :back }
-      format.js
+      format.js {render layout: false}
     end
   end
 
@@ -16,7 +16,7 @@ class FriendshipsController < ApplicationController
     current_user.accept_friend_request_from(@user)
     respond_to do |format|
       format.html { redirect_to :back }
-      format.js
+      format.js {render layout: false}
     end
   end
 
@@ -25,7 +25,7 @@ class FriendshipsController < ApplicationController
     Friendship.find(params[:id]).destroy
     respond_to do |format|
       format.html { redirect_to :back }
-      format.js
+      format.js {render layout: false}
     end
   end
 end

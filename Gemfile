@@ -12,7 +12,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'haml', '~> 4.0', '>= 4.0.7'
+gem 'slim', '~> 3.0', '>= 3.0.6'
 gem 'figaro', '~> 1.1', '>= 1.1.1'
 gem 'devise', '~> 3.5', '>= 3.5.6'
 gem 'omniauth', '~> 1.3', '>= 1.3.1'
@@ -39,6 +39,7 @@ group :test do
 end
 
 group :development do
+  gem 'haml2slim', '~> 0.4.7'
   gem 'better_errors', '2.1.1'
   gem 'traceroute'
   gem 'letter_opener', '~> 1.4', '>= 1.4.1'
@@ -47,7 +48,6 @@ group :development do
   gem 'bullet'
   gem 'rails_best_practices'
   gem 'rubocop', require: false
-  gem 'html2haml'
 end
 
 group :production do

@@ -1,4 +1,4 @@
-%p Friend Request Received
+p Friend Request Received
 .friend-options
   = form_for(user.friendships.find_by(friended_id: current_user, accepted: false), html: { method: :patch }, remote: true) do |f|
     = f.submit "Accept", class: "btn btn-primary"

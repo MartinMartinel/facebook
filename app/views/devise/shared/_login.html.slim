@@ -1,19 +1,19 @@
-%div.panel.panel-default
-  %div.panel-heading
-    %h4= t('.sign_in', :default => "Sign In")
-  %div.panel-body
+div.panel.panel-default
+  div.panel-heading
+    h4= t('.sign_in', :default => "Sign In")
+  div.panel-body
     = form_for(resource, as: resource_name, url: session_path(resource_name), html: {role: "form"}) do |f|
-      %div.form-group
+      div.form-group
         = f.label :email
-        %br/
+        br
         = f.email_field :email, autofocus: true, class: "form-control"
-      %div.form-group
+      div.form-group
         = f.label :password
-        %br/
+        br
         = f.password_field :password, autocomplete: "off", class: "form-control"
       - if devise_mapping.rememberable?
-        %div.checkbox
-          %label
+        div.checkbox
+          label
             = f.check_box :remember_me
             = f.label :remember_me
       = f.submit  t('.sign_in', :default => "Sign In"), class: "btn btn-primary"
