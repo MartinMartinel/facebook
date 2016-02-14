@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :users,       only: :index
   resources :friendships, only: [:create, :update, :destroy]
+  resources :notifications, only: [:index]
 
   as :user do
     get    'login'  => 'devise/sessions#new',     :as => :new_user_session

@@ -13,9 +13,10 @@
         - if user_signed_in?
           %ul.nav.navbar-nav.navbar-right
             %li= link_to 'Newsfeed', newsfeed_path(current_user)
-            %li= link_to ("All Friends <span id='friend-count'>(#{current_user.friends.count})</span>").html_safe, friends_path(current_user)
+            %li= link_to raw("All Friends <span id='friend-count'>(#{current_user.friends.count})</span>"), friends_path(current_user)
             %li= link_to raw("Friend Requests <span id='request-count'>(#{current_user.requests_from.count})</span>"), friend_requests_path(current_user)
             %li= link_to 'Find Friends', find_friends_path(current_user)
+            %li= link_to notification_alert, notifications_path
             %li= link_to 'Settings', edit_user_registration_path
             %li= link_to 'Log Out', destroy_user_session_path, :method => :delete
         - else
