@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
 
   has_many :notifications
 
+  has_many :created_posts, class_name: "Post", foreign_key: :creator_id, dependent: :destroy
+  has_many :received_posts, class_name: "Post", foreign_key: :receiver_id, dependent: :destroy
+
   has_many :friendships, dependent: :destroy, foreign_key: :friender_id
   has_many :reverse_friendships, class_name: "Friendship",
   dependent: :destroy,
