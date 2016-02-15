@@ -12,6 +12,7 @@ describe User do
   it { should respond_to(:friended_users) }
   it { should respond_to(:created_posts) }
   it { should respond_to(:received_posts) }
+  it { should respond_to(:comments) }
 
   describe 'validations' do
     it { should allow_value('foo@example.com').for(:email) }
@@ -27,6 +28,7 @@ describe User do
     it { should have_many(:reverse_friendships).dependent(:destroy) }
     it { should have_many(:created_posts).dependent(:destroy) }
     it { should have_many(:received_posts).dependent(:destroy) }
+    it { should have_many(:comments).dependent(:destroy) }
   end
 
   describe "defaults" do
