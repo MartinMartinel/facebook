@@ -2,10 +2,12 @@ class User < ActiveRecord::Base
 
   scope :alphabetize, -> { order(:first_name, :last_name) }
 
-  has_many :notifications
+  has_many :notifications, dependent: :destroy
 
   has_many :created_posts, class_name: "Post", foreign_key: :creator_id, dependent: :destroy
   has_many :received_posts, class_name: "Post", foreign_key: :receiver_id, dependent: :destroy
+
+  has_many :likes, as: :likeable, dependent: :destroy
 
   has_many :comments, foreign_key: :commenter_id, dependent: :destroy
 
