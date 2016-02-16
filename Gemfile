@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 ruby '2.2.1'
 
@@ -19,6 +19,7 @@ gem 'omniauth', '~> 1.3', '>= 1.3.1'
 gem 'omniauth-facebook', '~> 3.0'
 gem 'paperclip', '~> 4.3', '>= 4.3.4'
 gem 'addressable', '~> 2.4'
+gem 'opal-rails', '~> 0.8.1'
 
 group :development, :test do
   gem 'byebug'
