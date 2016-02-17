@@ -4,4 +4,5 @@
   = link_to "All Users", users_path
   .newsfeed-container
     = render template: 'posts/new'
-    = render @posts
+    ul
+      = render @posts

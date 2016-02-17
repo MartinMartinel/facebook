@@ -1,5 +1,5 @@
 - creator = post.creator
-.post-container
+li.post-container
   .post-details
     - if current_user == post.creator || current_user == post.receiver
       = link_to "Delete my post", post_path(post), method: :delete, class: "delete"
@@ -18,6 +18,8 @@
   - if likes > 0
     .post-likers= post_likers(post, likes)
 
-  = render post.comments.order(created_at: :asc).includes(:commenter)
+  - if post.comments.any?
+    ul.comment-list
+      = render post.comments.order(created_at: :asc).includes(:commenter)
 
   = render template: "comments/new", locals: {post: post}

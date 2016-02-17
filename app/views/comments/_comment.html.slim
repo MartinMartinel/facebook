@@ -1,5 +1,5 @@
 - commenter = comment.commenter
-.comment-container
+li.comment-container
   .comment-details
     - if current_user == comment.commenter
       = link_to "Delete my comment", comment_path(comment), method: :delete, class: "delete"

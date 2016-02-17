@@ -10,3 +10,13 @@
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+
+.delete {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  opacity: 0.3;
+  &:hover {
+    opacity: 1;
+  }
+}
