@@ -20,6 +20,7 @@ gem 'omniauth-facebook', '~> 3.0'
 gem 'paperclip', '~> 4.3', '>= 4.3.4'
 gem 'addressable', '~> 2.4'
 gem 'opal-rails', '~> 0.8.1'
+gem 'country_select', github: 'stefanpenner/country_select'
 
 group :development, :test do
   gem 'byebug'
