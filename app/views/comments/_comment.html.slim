@@ -1,8 +1,8 @@
 - commenter = comment.commenter
-li.comment-container
+li.comment-container id="comment-#{comment.id}-like"
   .comment-details
     - if current_user == comment.commenter
-      = link_to "Delete my comment", comment_path(comment), method: :delete, class: "delete"
+      = link_to "Delete my comment", comment_path(comment), method: :delete, class: "delete", remote: true
     = link_to users_path do
       = image_for(commenter, options = { img_class: "sm-img"})
     .info
@@ -14,6 +14,6 @@ li.comment-container
         br
         = "#{comment.likes.count} likes."
         br
-        span.comment-like
+        span.comment-like id="comment-#{comment.id}-like"
           = render "likes/like_link", likeable_id: comment.id, likeable_type: "Comment"
 

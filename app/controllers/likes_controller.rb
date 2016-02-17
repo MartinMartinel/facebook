@@ -4,14 +4,20 @@ class LikesController < ApplicationController
                      likeable_type: params[:likeable_type],
                      user_id: current_user.id)
     if @like.save
-      redirect_to :back
-    else
-      redirect_to :back, notice:  @like.errors.full_messages.to_sentence
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.js   { render "create_destroy" }
+      end
     end
   end
 
   def destroy
-    Like.find(params[:id]).destroy
-    redirect_to :back
+    @like = Like.find(params[:id])
+    @like.destroy
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js   { render "create_destroy" }
+    end
   end
 end

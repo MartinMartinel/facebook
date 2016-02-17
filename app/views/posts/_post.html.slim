@@ -1,8 +1,8 @@
 - creator = post.creator
-li.post-container
+li.post-container id="post-#{post.id}"
   .post-details
     - if current_user == post.creator || current_user == post.receiver
-      = link_to "Delete my post", post_path(post), method: :delete, class: "delete"
+      = link_to "Delete my post", post_path(post), method: :delete, class: "delete", remote: true
     = link_to users_path do
       = image_for(creator, options = { img_class: "md-img"})
     .info
@@ -11,7 +11,7 @@ li.post-container
 
     p= post.content
 
-    .post-like
+    .post-like id="post-#{post.id}-like"
       = render "likes/like_link", likeable_id: post.id, likeable_type: "Post"
 
   - likes = post.likes.count
@@ -19,7 +19,7 @@ li.post-container
     .post-likers= post_likers(post, likes)
 
   - if post.comments.any?
-    ul.comment-list
+    ul.comment-list id="post-#{post.id}-comments"
       = render post.comments.order(created_at: :asc).includes(:commenter)
 
   = render template: "comments/new", locals: {post: post}
