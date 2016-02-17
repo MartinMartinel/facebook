@@ -12,8 +12,10 @@
     .post-like
       = render "likes/like_link", likeable_id: post.id, likeable_type: "Post"
 
-  .post-likers= "#{post.likes.count} people like this"
+  - likes = post.likes.count
+  - if likes > 0
+    .post-likers= post_likers(post, likes)
 
-  = render post.comments
+  = render post.comments.order(created_at: :asc).includes(:commenter)
 
   = render template: "comments/new", locals: {post: post}
