@@ -13,6 +13,7 @@ describe User do
   it { should respond_to(:created_posts) }
   it { should respond_to(:received_posts) }
   it { should respond_to(:comments) }
+  it { should respond_to(:profile) }
 
   describe 'validations' do
     it { should allow_value('foo@example.com').for(:email) }
@@ -29,6 +30,7 @@ describe User do
     it { should have_many(:created_posts).dependent(:destroy) }
     it { should have_many(:received_posts).dependent(:destroy) }
     it { should have_many(:comments).dependent(:destroy) }
+    it { should have_one(:profile).dependent(:destroy) }
   end
 
   describe "defaults" do
@@ -144,6 +146,14 @@ describe User do
           expect(non_friend).to include(not_friend)
         end
       end
+    end
+  end
+
+  describe "creates profile" do
+    it "makes a profile when a User is created" do
+      new_user = create(:user)
+      expect(new_user.profile.access_to).to eq("All Users")
+      expect(new_user.profile.email_notification).to be_truthy
     end
   end
 end

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :comments,      only: [:create, :destroy]
   resources :likes,         only: [:create, :destroy]
 
+  resources :profiles,      only: [:show, :edit, :update]
 
   as :user do
     get    'login'  => 'devise/sessions#new',     :as => :new_user_session

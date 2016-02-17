@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
 
   scope :alphabetize, -> { order(:first_name, :last_name) }
 
+  has_one :profile, dependent: :destroy
+
   has_many :notifications, dependent: :destroy
 
   has_many :created_posts, class_name: "Post", foreign_key: :creator_id, dependent: :destroy
@@ -21,6 +23,8 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
+
+  before_create :build_default_profile
 
 
   def send_friend_request_to friended
@@ -102,4 +106,11 @@ class User < ActiveRecord::Base
       User.create!(:email => data["email"], :password => Devise.friendly_token[0,20], :first_name => data["fi"])
     end
   end
+
+  def build_default_profile
+    self.build_profile({ access_to: "All Users", email_notification: true })
+    true
+  end
+
+
 end
