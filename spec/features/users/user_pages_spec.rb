@@ -36,6 +36,18 @@ describe 'User pages' do
       end
     end
 
+    describe "post deletion" do
+      before do
+        visit newsfeed_path(user)
+        fill_in "new_post", with: "Lorem ipsum post"
+        click_on "Post"
+      end
+
+      it "allows deletion of own post" do
+        expect{ page.first(".delete").click }.to change{ Post.count }.by(-1)
+      end
+    end
+
     describe "comment creation" do
       before do
         visit newsfeed_path(user)
@@ -69,6 +81,23 @@ describe 'User pages' do
             expect(page).to have_text(user.name)
           end
         end
+      end
+    end
+
+    describe "comment deletion" do
+      before do
+        visit newsfeed_path(user)
+        fill_in "new_post", with: "Lorem ipsum post"
+        click_on "Post"
+        within('.post-container') do
+          fill_in "Content", with: "Lorem ipsum comment"
+          click_on "Comment"
+        end
+      end
+
+      it "allows deletion of own comment" do
+        expect{ page.find(".comment-container").find(".delete").click }.
+          to change{ Comment.count }.by(-1)
       end
     end
 

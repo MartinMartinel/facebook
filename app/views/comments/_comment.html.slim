@@ -1,6 +1,8 @@
 - commenter = comment.commenter
 .comment-container
   .comment-details
+    - if current_user == comment.commenter
+      = link_to "Delete my comment", comment_path(comment), method: :delete, class: "delete"
     = link_to users_path do
       = image_for(commenter, options = { img_class: "sm-img"})
     .info

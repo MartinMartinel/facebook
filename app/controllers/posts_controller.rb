@@ -9,4 +9,8 @@ class PostsController < ApplicationController
     redirect_to :back
   end
 
+  def destroy
+    Post.find(params[:id]).destroy
+    redirect_to :back
+  end
 end

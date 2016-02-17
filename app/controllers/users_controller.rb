@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   def newsfeed
     @title = "Newsfeed"
     @receiver_id = params[:id]
-    @posts = Post.order(created_at: :desc).includes(:creator)
+    @posts = Post.order(created_at: :desc).includes(:creator).includes(:receiver)
   end
 
   def friends
