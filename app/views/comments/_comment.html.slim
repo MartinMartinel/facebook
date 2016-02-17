@@ -11,8 +11,9 @@ li.comment-container
 
       p
         = "Created #{time_ago_in_words(comment.created_at)} ago."
+        br
+        = "#{comment.likes.count} likes."
+        br
         span.comment-like
           = render "likes/like_link", likeable_id: comment.id, likeable_type: "Comment"
 
-          = "."
-          = "#{comment.likes.count} likes."

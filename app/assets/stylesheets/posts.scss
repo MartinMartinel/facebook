@@ -117,4 +117,7 @@
 .post-likers {
   background-color: $gray;
   padding: 9px 12px 7px 12px;
+  .like-img {
+    margin-right: 2px;
+  }
 }
