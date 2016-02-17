@@ -6,12 +6,124 @@ describe 'User pages' do
     log_in(user.email, user.password)
   end
 
-  describe 'newsfeed' do
+  describe "newsfeed" do
 
-    it { should have_text('Newsfeed') }
-    it { should have_text(user.first_name) }
+    describe "post creation" do
+      before { visit newsfeed_path(user) }
 
+      context "with no post content" do
+        it "does not create a post" do
+          expect { click_on "Post" }.not_to change{ Post.count }
+        end
+      end
+
+      context "with post content" do
+        before { fill_in "new_post", with: "Lorem ipsum post" }
+
+        it "creates a post" do
+          expect { click_on "Post" }.to change{ Post.count }.by(1)
+        end
+        it "displays the post" do
+          click_on "Post"
+          expect(page).to have_text("Lorem ipsum post")
+        end
+        it "displays the post's creator" do
+          click_on "Post"
+          within ".newsfeed-container" do
+            expect(page).to have_text(user.name)
+          end
+        end
+      end
+    end
+
+    describe "comment creation" do
+      before do
+        visit newsfeed_path(user)
+        fill_in "new_post", with: "Lorem ipsum"
+        click_on "Post"
+      end
+
+      context "with no comment content" do
+        it "does not create a comment" do
+          expect { click_on "Comment" }.not_to change{ Comment.count }
+        end
+      end
+
+      context "with comment content" do
+        before do
+          within('.post-container') do
+            fill_in "Content", with: "Lorem ipsum comment"
+          end
+        end
+
+        it "creates a comment" do
+          expect { click_on "Comment" }.to change{ Comment.count }.by(1)
+        end
+        it "displays the comment" do
+          click_on "Comment"
+          expect(page).to have_text("Lorem ipsum comment")
+        end
+        it "displays the commenter's name" do
+          click_on "Comment"
+          within ".post-container" do
+            expect(page).to have_text(user.name)
+          end
+        end
+      end
+    end
+
+    describe "liking a post" do
+      before do
+        visit newsfeed_path(user)
+        fill_in "new_post", with: "Lorem ipsum"
+        click_on "Post"
+      end
+
+      it "creates a like" do
+        expect { click_on "Like" }.to change{ Like.count }.by(1)
+      end
+      it "enables unliking" do
+        click_on "Like"
+        expect(page).to have_link("Unlike")
+      end
+      it "can unlike" do
+        click_on "Like"
+        expect { click_on "Unlike" }.to change{ Like.count }.by(-1)
+      end
+    end
+
+    describe "liking a comment" do
+      before do
+        visit newsfeed_path(user)
+        fill_in "new_post", with: "Lorem ipsum"
+        click_on "Post"
+        visit newsfeed_path(user)
+        within '.comment-form' do
+          fill_in "Content", with: "Lorem"
+          click_on "Comment"
+        end
+      end
+
+      it "creates a like" do
+        within '.comment-like' do
+          expect { click_on "Like" }.to change{ Like.count }.by(1)
+        end
+      end
+      it "enables unliking" do
+        within '.comment-like' do
+          click_on "Like"
+        end
+        expect(page).to have_link("Unlike")
+      end
+      it "can unlike" do
+        within '.comment-like' do
+          click_on "Like"
+        end
+        expect { click_on "Unlike" }.to change{ Like.count }.by(-1)
+      end
+    end
   end
+
 
   describe "index" do
     before(:each) do

@@ -12,6 +12,11 @@ Rails.application.routes.draw do
   resources :friendships, only: [:create, :update, :destroy]
   resources :notifications, only: [:index]
 
+  resources :posts,         only: [:create]
+  resources :comments,      only: [:create]
+  resources :likes,         only: [:create, :destroy]
+
+
   as :user do
     get    'login'  => 'devise/sessions#new',     :as => :new_user_session
     post   'login'  => 'devise/sessions#create',  :as => :user_session

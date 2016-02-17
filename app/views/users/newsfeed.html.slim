@@ -1,4 +1,7 @@
 .container
   h1= @title
-  = link_to "All Users", users_path
   p= "Newsfeed for #{current_user.first_name} #{current_user.last_name}"
+  = link_to "All Users", users_path
+  .newsfeed-container
+    = render template: 'posts/new'
+    = render @posts

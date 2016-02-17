@@ -1,0 +1,16 @@
+- commenter = comment.commenter
+.comment-container
+  .comment-details
+    = link_to users_path do
+      = image_for(commenter, options = { img_class: "sm-img"})
+    .info
+      = link_to "#{commenter.name}"
+      p= comment.content
+
+      p
+        = "Created #{time_ago_in_words(comment.created_at)} ago."
+        span.comment-like
+          = render "likes/like_link", likeable_id: comment.id, likeable_type: "Comment"
+
+          = "."
+          = "#{comment.likes.count} likes."

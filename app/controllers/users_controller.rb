@@ -8,6 +8,8 @@ class UsersController < ApplicationController
 
   def newsfeed
     @title = "Newsfeed"
+    @receiver_id = params[:id]
+    @posts = Post.includes(:creator).includes(:comments)
   end
 
   def friends
