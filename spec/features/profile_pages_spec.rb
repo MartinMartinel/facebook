@@ -19,12 +19,11 @@ describe "Profile Pages" do
     it { should have_checked_field("Yes") }
     it { should have_submit("Update Profile") }
     it { should have_link("Cancel") }
-    it { should have_button("Delete My Account") }
   end
 
   describe "Show Page" do
     before(:each) do
-      visit edit_profile_path(user)
+      visit edit_profile_path(user.profile)
       select("Dec",                  from: "profile_birthday_2i")
       select("7",                    from: "profile_birthday_3i")
       select("Australia",            from: "Country")

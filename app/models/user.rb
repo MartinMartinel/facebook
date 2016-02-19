@@ -86,10 +86,6 @@ class User < ActiveRecord::Base
     User.where.not(id: all_friend_ids)
   end
 
-  def name
-    "#{first_name} #{last_name}"
-  end
-
   def update_new_notifications
     increment!(:new_notifications)
   end
@@ -108,7 +104,7 @@ class User < ActiveRecord::Base
   end
 
   def build_default_profile
-    self.build_profile({ access_to: "All Users", email_notification: true })
+    self.build_profile({ access_to: ACCESS[:all], email_notification: true })
     true
   end
 
@@ -116,5 +112,10 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  alias_method 'name', 'full_name'
 
+
+  def genderize
+    (gender == "male") ? "his" : "her"
+    end
 end
