@@ -1,13 +1,23 @@
 module UsersHelper
+  def get_status receiver_id
+    (receiver_id.to_s == current_user.id.to_s) ? "Status" : "Post"
+  end
+
+  def get_placeholder receiver_id
+    (receiver_id.to_s == current_user.id.to_s) ? "What's on your mind?" :
+        "Write something..."
+  end
+
   def friend_status_with(user)
+    return if current_user == user
     if current_user.has_friend_request_from?(user)
       render "users/request_received", user: user
-    elsif current_user.sent_friend_request_to?(user)
-      render "users/request_sent", user: user
+    elsif user.has_friend_request_from?(current_user)
+      render "users/request_sent"
     elsif current_user.friends_with?(user)
       render "users/unfriend", user: user
     else
-     render "users/add_friend", user: user
+      render "users/add_friend", user: user
     end
   end
 

@@ -9,4 +9,10 @@ html
   body class="controller__#{controller_name}action__#{action_name}"
     = render 'layouts/messages'
     = render 'layouts/navigation'
-    = yield
+    .main-container
+      - if user_signed_in?
+        .profile= yield(:profile) if content_for?(:profile)
+        .info-container
+          .content= yield
+      - else
+        = yield

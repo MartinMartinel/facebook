@@ -3,8 +3,8 @@ li.post-container id="post-#{post.id}"
   .post-details
     - if current_user == post.creator || current_user == post.receiver
       = link_to "Delete my post", post_path(post), method: :delete, class: "delete", remote: true
-    = link_to users_path do
-      = image_for(creator, options = { img_class: "md-img"})
+      = link_to timeline_path(creator) do
+        = image_for(creator, options = { img_class: "md-img"})
     .info
       .poster= link_to "#{creator.name}"
       = "Created #{time_ago_in_words(post.created_at)} ago"

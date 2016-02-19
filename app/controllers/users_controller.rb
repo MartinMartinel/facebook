@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  include UsersHelper
 
   def index
     @users = User.all.alphabetize
@@ -28,5 +29,13 @@ class UsersController < ApplicationController
     @users = current_user.no_friendship
     @title = "Find Friends"
     render "index"
+  end
+
+  def timeline
+    @receiver_id = params[:id]
+    @label       = get_status(@receiver_id)
+    @placeholder = get_placeholder(@receiver_id)
+    @posts       = Post.all.order(created_at: :desc).limit(1)
+    render layout: "profiles"
   end
 end

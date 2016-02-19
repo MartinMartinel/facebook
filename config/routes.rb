@@ -29,4 +29,5 @@ Rails.application.routes.draw do
   get 'friends/:id',         to: 'users#friends',         as: :friends
   get 'friend_requests/:id', to: 'users#friend_requests', as: :friend_requests
   get 'find_friends/:id',    to: 'users#find_friends',    as: :find_friends
+  get 'timeline/:id',        to: 'users#timeline',        as: :timeline
 end

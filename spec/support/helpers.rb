@@ -22,4 +22,38 @@ module Helpers
     user1.send_friend_request_to(user2)
     user2.accept_friend_request_from(user1)
   end
+
+  def make_friends2(user, friend)
+    click_on "All Users", match: :first
+    within("#friend-status-#{friend.id}") do
+      click_on "Add Friend"
+    end
+    click_on "Log Out", match: :first
+
+    log_in(friend.email, friend.password)
+    click_on("Friend Requests")
+    click_on("Accept")
+    click_on "Log Out", match: :first
+    log_in(user.email, user.password)
+  end
+
+  def friend_request_to_from(user, friender)
+    click_on "Log Out", match: :first
+
+    log_in(friender.email, friender.password)
+    click_on "All Users", match: :first
+    within("#friend-status-#{user.id}") do
+      click_on "Add Friend"
+    end
+    click_on "Log Out", match: :first
+
+    log_in(user.email, user.password)
+  end
+
+  def friend_request_from_to(user, friended)
+    click_on "All Users", match: :first
+    within("#friend-status-#{friended.id}") do
+      click_on "Add Friend"
+    end
+  end
 end
